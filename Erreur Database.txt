@@ -1,0 +1,19 @@
+
+a) prix négatif
+Résultat : CHECK constraint failed: prix >= 0
+À la ligne 1 :
+INSERT INTO produits (nom, prix, quantite, date_ajout, categorie_id)
+VALUES ('Test prix', -5, 1, '2026-10-05T08:00:00', 1);
+
+ b) catégorie qui n'existe pas
+
+Résultat : FOREIGN KEY constraint failed
+À la ligne 1 :
+INSERT INTO produits (nom, prix, quantite, date_ajout, categorie_id)
+VALUES ('Test catégorie', 1, 1, '2026-10-05T08:00:00', 99);
+
+c) supprimer une catégorie qui contient des produits
+
+Résultat : FOREIGN KEY constraint failed
+À la ligne 1 :
+DELETE FROM categories WHERE id = 1;
