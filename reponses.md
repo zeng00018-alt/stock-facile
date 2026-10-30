@@ -31,3 +31,17 @@ Cela empêche la suppression d'une catégorie si des produits y sont encore ratt
 
 Q1.8.
 SQLite gère des verrous d'accès et des fichiers journaux (-wal, -shm). Si DB Browser garde le fichier ouvert en mode exclusif ou maintient une transaction active, une autre application (comme votre appli Flutter) se verra refuser l'accès en écriture, ce qui provoquera un blocage ou une exception dans l'application.
+
+Q2.1.
+sqflite : Le package Flutter standard pour interagir avec des bases de données SQLite sur mobile (Android/iOS).
+
+path : Un package utilitaire indispensable pour manipuler et joindre des chemins de fichiers de manière sécurisée (cross-platform).
+
+sqflite_common_ffi : Permet d'exécuter SQLite via l'interface FFI (Foreign Function Interface), ce qui est obligatoire pour faire tourner SQLite sur un bureau desktop (Windows ou Linux).
+
+Q2.3
+Pourquoi id est-il de type int? (nullable) ?
+Parce qu'avant qu'une catégorie ne soit insérée dans la base de données, elle n'a pas encore reçu son id auto-incrémenté par SQLite. L'objet Dart est créé en mémoire avec un id à null.
+
+Pourquoi toMap() n'ajoute-t-il id que s'il n'est pas null ?
+Parce que lors d'un nouvel enregistrement (INSERT), c'est SQLite qui doit générer automatiquement l'id grâce à AUTOINCREMENT. Si on envoyait explicitement un id à null, cela pourrait entrer en conflit avec la génération automatique de la base.
